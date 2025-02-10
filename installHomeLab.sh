@@ -26,6 +26,8 @@ if [[ "$USE_TAILSCALE" =~ ^[Yy]$ ]]; then
     echo "Installing Tailscale, please be prepared to authenticate..."
     curl -fsSL https://tailscale.com/install.sh | sh
 
+    sudo tailscale up
+
     echo "Waiting for Tailscale to establish a connection..."
     while ! ip addr show tailscale0 &>/dev/null; do
         sleep 1
@@ -87,7 +89,7 @@ if [[ "$USE_IMMICH" =~ ^[Yy]$ ]]; then
     wget -O docker-compose.yml https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
     wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
 
-    docker compose up -d
+    sudo docker compose up -d
     echo "Immich installation complete."
     echo "Access Immich at http://$DOMAIN_NAME:2283"
     
