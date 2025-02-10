@@ -105,7 +105,8 @@ if [[ "$USE_NEXTCLOUD" =~ ^[Yy]$ ]]; then
     read -sp "Enter a password for the Nextcloud database user: " DB_PASSWORD
     echo
 
-    sudo apt update && sudo apt upgrade -y
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt update
     sudo apt install -y apache2 mariadb-server php8.2 php8.2-{gd,mysql,curl,xml,zip,mbstring,intl,bcmath,gmp}
 
     sudo mysql_secure_installation <<EOF
@@ -128,21 +129,21 @@ EOF
 
     # Configure Apache for Nextcloud
     sudo bash -c "cat > /etc/apache2/sites-available/nextcloud.conf" <<EOL
-<VirtualHost *:80>
-    DocumentRoot /var/www/nextcloud/
-    ServerName $DOMAIN_NAME
-    <Directory /var/www/nextcloud/>
-        Require all granted
-        AllowOverride All
-        Options FollowSymLinks MultiViews
-    </Directory>
-    <IfModule mod_dav.c>
-        Dav off
-    </IfModule>
-    ErrorLog \${APACHE_LOG_DIR}/nextcloud_error.log
-    CustomLog \${APACHE_LOG_DIR}/nextcloud_access.log combined
-</VirtualHost>
-EOL
+        <VirtualHost *:80>
+            DocumentRoot /var/www/nextcloud/
+            ServerName $DOMAIN_NAME
+            <Directory /var/www/nextcloud/>
+                Require all granted
+                AllowOverride All
+                Options FollowSymLinks MultiViews
+            </Directory>
+            <IfModule mod_dav.c>
+                Dav off
+            </IfModule>
+            ErrorLog \${APACHE_LOG_DIR}/nextcloud_error.log
+            CustomLog \${APACHE_LOG_DIR}/nextcloud_access.log combined
+        </VirtualHost>
+    EOL
 
     sudo a2ensite nextcloud.conf
     sudo a2enmod rewrite headers env dir mime
