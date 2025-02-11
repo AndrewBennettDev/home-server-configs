@@ -107,14 +107,7 @@ if [[ "$USE_NEXTCLOUD" =~ ^[Yy]$ ]]; then
 
     sudo add-apt-repository ppa:ondrej/php -y
     sudo apt update
-    sudo apt install -y apache2 mariadb-server php8.2 php8.2-{gd,mysql,curl,xml,zip,mbstring,intl,bcmath,gmp}
-
-    sudo mysql_secure_installation <<EOF
-y
-n
-y
-y
-EOF
+    sudo apt install -y apache2 php8.2 php8.2-gd php8.2-sqlite3 php8.2-curl php8.2-zip php8.2-xml php8.2-mbstring php8.2-mysql php8.2-bz2 php8.2-intl php8.2-smbclient php8.2-imap php8.2-gmp php8.2-bcmath libapache2-mod-php8.2
 
     sudo mysql -u root -e "CREATE DATABASE nextcloud;"
     sudo mysql -u root -e "CREATE USER 'nextclouduser'@'localhost' IDENTIFIED BY '$DB_PASSWORD';"
