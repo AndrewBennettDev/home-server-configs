@@ -143,7 +143,7 @@ EOF
             ErrorLog \${APACHE_LOG_DIR}/nextcloud_error.log
             CustomLog \${APACHE_LOG_DIR}/nextcloud_access.log combined
         </VirtualHost>
-    EOL
+EOL
 
     sudo a2ensite nextcloud.conf
     sudo a2enmod rewrite headers env dir mime
