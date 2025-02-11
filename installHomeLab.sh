@@ -103,6 +103,7 @@ if [[ "$USE_NEXTCLOUD" =~ ^[Yy]$ ]]; then
     echo "Installing NextCloud..."
     
     read -sp "Enter a password for the Nextcloud database user: " DB_PASSWORD
+    ### TODO: Ask for pass 2nd time, compare strings to ensure they are equal ###
     echo
 
     sudo add-apt-repository ppa:ondrej/php -y
